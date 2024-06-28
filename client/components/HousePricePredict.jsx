@@ -10,18 +10,18 @@ import {
 } from "react-native";
 import axios from "axios";
 const formFields = [
-  "bedrooms",
-  "bathrooms",
-  "sqft_living",
-  "sqft_lot",
-  "floors",
-  "waterfront",
-  "view",
-  "condition",
-  "sqft_above",
-  "sqft_basement",
-  "yr_built",
-  "yr_renovated",
+  { name: "bedrooms", placeholder: "Number of Bedrooms" },
+  { name: "bathrooms", placeholder: "Number of Bathrooms" },
+  { name: "sqft_living", placeholder: "Square Foot Living Area" },
+  { name: "sqft_lot", placeholder: "Square Foot Lot Area" },
+  { name: "floors", placeholder: "Number of Floors" },
+  { name: "waterfront", placeholder: "Waterfront (0 or 1)" },
+  { name: "view", placeholder: "View Rating" },
+  { name: "condition", placeholder: "Condition Rating" },
+  { name: "sqft_above", placeholder: "Square Foot Above Ground" },
+  { name: "sqft_basement", placeholder: "Square Foot Basement" },
+  { name: "yr_built", placeholder: "Year Built" },
+  { name: "yr_renovated", placeholder: "Year Renovated" },
 ];
 
 const HousePricePredict = () => {
@@ -36,8 +36,9 @@ const HousePricePredict = () => {
 
   const handleSubmit = async () => {
     try {
+      console.log(form);
       const response = await axios.post(
-        "http://localhost:8000/predict-house-price/",
+        "http://127.0.0.1:8000/predict-house-price/",
         form
       );
       setPredictedPrice(response.data.predicted_price);
@@ -49,15 +50,17 @@ const HousePricePredict = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>House Price Predictor</Text>
-      {formFields.map((field) => (
-        <TextInput
-          key={field}
-          style={styles.input}
-          placeholder={field.replace("_", " ")}
-          value={form[field]}
-          onChangeText={(value) => handleChange(field, value)}
-          keyboardType="numeric"
-        />
+      {formFields.map((field, index) => (
+        <View key={index}>
+          <Text>{field.placeholder}</Text>
+          <TextInput
+            key={field.name}
+            style={styles.input}
+            value={form[field.name]}
+            onChangeText={(value) => handleChange(field.name, value)}
+            keyboardType="numeric"
+          />
+        </View>
       ))}
       <Button title="Predict Price" onPress={handleSubmit} />
       {predictedPrice !== null && (
@@ -70,3 +73,28 @@ const HousePricePredict = () => {
 };
 
 export default HousePricePredict;
+const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    justifyContent: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 8,
+  },
+  result: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
