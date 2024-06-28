@@ -4,13 +4,16 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 
 export default function TabLayout() {
   return (
+    // add icon to header
     <Tabs
       screenOptions={{
         headerLeft: () => <DrawerToggleButton tintColor="#000" />,
+        headerTitle: "House Price Predictor",
+        headerStyle: { backgroundColor: "#fff" },
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="Home"
         options={{
           tabBarIcon: ({ focused }) => (
             <Ionicons
@@ -21,7 +24,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="settings"
         options={{
           tabBarIcon: ({ focused }) => (
@@ -32,8 +35,8 @@ export default function TabLayout() {
             />
           ),
         }}
-      />
-      <Tabs.Screen
+      /> */}
+      {/* <Tabs.Screen
         name="content"
         options={{
           tabBarIcon: ({ focused }) => (
@@ -44,7 +47,7 @@ export default function TabLayout() {
             />
           ),
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="chat"
         options={{
