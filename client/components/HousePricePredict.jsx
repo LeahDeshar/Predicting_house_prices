@@ -80,14 +80,16 @@ export default function HousePricePredict() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>House Price Predictor</Text>
+      <Text style={styles.title}>
+        Enter the Value: Your Gateway to Predicting House Prices!
+      </Text>
       {formFields.map((field, index) => (
         <View key={index}>
-          <Text>{field.placeholder}</Text>
           <TextInput
             key={field.name}
             style={styles.input}
             placeholder={field.placeholder}
+            placeholderTextColor={"grey"}
             value={form[field.name]}
             onChangeText={(value) => handleChange(field.name, value)}
             keyboardType="numeric"
@@ -95,7 +97,6 @@ export default function HousePricePredict() {
         </View>
       ))}
       <Button title="Predict Price" onPress={handleSubmit} />
-      <Button title="Test" onPress={handleTest} />
       {predictedPrice !== null && (
         <Text style={styles.result}>
           Predicted Price: ${predictedPrice.toFixed(2)}
@@ -115,14 +116,19 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    paddingTop: 18,
+    paddingBottom: 10,
+    color: "#063663",
     textAlign: "center",
   },
   input: {
     height: 40,
-    borderColor: "gray",
+    borderRadius: 25,
+    borderColor: "#80808052",
     borderWidth: 1,
     marginBottom: 10,
     paddingLeft: 8,
+    paddingVertical: 20,
   },
   result: {
     marginTop: 20,

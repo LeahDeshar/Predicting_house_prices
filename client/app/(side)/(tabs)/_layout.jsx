@@ -9,7 +9,8 @@ export default function TabLayout() {
       screenOptions={{
         headerLeft: () => <DrawerToggleButton tintColor="#000" />,
         headerTitle: "House Price Predictor",
-        headerStyle: { backgroundColor: "#fff" },
+        headerStyle: { backgroundColor: "#3492eb" },
+        headerStatusBarHeight: 55,
       }}
     >
       <Tabs.Screen
@@ -19,35 +20,12 @@ export default function TabLayout() {
             <Ionicons
               name={focused ? "home" : "home-outline"}
               size={24}
-              color={focused ? "blue" : "grey"}
+              color={focused ? "#3492eb" : "grey"}
             />
           ),
         }}
       />
-      {/* <Tabs.Screen
-        name="settings"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name={focused ? "settings" : "settings-outline"}
-              size={24}
-              color={focused ? "blue" : "grey"}
-            />
-          ),
-        }}
-      /> */}
-      {/* <Tabs.Screen
-        name="content"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons
-              name={focused ? "pencil" : "pencil-outline"}
-              size={24}
-              color={focused ? "blue" : "grey"}
-            />
-          ),
-        }}
-      /> */}
+
       <Tabs.Screen
         name="chat"
         options={{
@@ -55,7 +33,7 @@ export default function TabLayout() {
             <Ionicons
               name={focused ? "chatbubble" : "chatbubble-ellipses-outline"}
               size={24}
-              color={focused ? "blue" : "grey"}
+              color={focused ? "#3492eb" : "grey"}
             />
           ),
         }}
