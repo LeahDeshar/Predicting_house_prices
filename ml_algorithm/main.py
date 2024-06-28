@@ -20,6 +20,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# endpoint to test
+@app.get('/')
+async def test():
+    return {"message": "Hello World"}
+
+
 @app.post('/predict-house-price/')
 async def predict_house_price(file: UploadFile = File(...)):
     contents = await file.read()
