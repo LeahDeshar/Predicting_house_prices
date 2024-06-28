@@ -19,9 +19,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # test endpoint
 @app.get('/test/')
-def index():
+def test():
     return {'message': 'This is the homepage of the API'}
 
 @app.post('/predict-house-price/')

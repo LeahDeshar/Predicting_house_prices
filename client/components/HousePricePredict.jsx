@@ -24,7 +24,10 @@ const formFields = [
   { name: "yr_built", placeholder: "Year Built" },
   { name: "yr_renovated", placeholder: "Year Renovated" },
 ];
-
+const axiosInstance = axios.create({
+  baseURL: "http://192.168.1.6:8000",
+  timeout: 10000, // 10 seconds timeout
+});
 export default function HousePricePredict() {
   const [form, setForm] = useState(
     formFields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
@@ -37,8 +40,8 @@ export default function HousePricePredict() {
 
   const handleTest = async () => {
     try {
-      const response = await axios.get("http://192.168.1.6:8000/test/");
-      console.log(response?.message);
+      const response = await axiosInstance.get("http://192.168.1.6:8000/test/");
+      console.log(response.data.message);
     } catch (error) {
       console.error(error);
     }
