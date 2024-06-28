@@ -2,6 +2,10 @@
 
 This project is an application for predicting house prices based on given features. It consists of a frontend built with Expo React Native and a backend API developed with FastAPI, using a RandomForest algorithm for predictions.
 
+## Output
+
+![image](o.png)
+
 ## Features
 
 - **Frontend (Expo React Native):**
