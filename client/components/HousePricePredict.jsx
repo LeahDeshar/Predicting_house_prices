@@ -37,8 +37,8 @@ export default function HousePricePredict() {
 
   const handleTest = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/test/");
-      console.log(response.data);
+      const response = await axios.get("http://192.168.1.6:8000/test/");
+      console.log(response?.message);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +62,7 @@ export default function HousePricePredict() {
         yr_renovated: parseInt(form.yr_renovated),
       };
       const response = await axios.post(
-        "http://127.0.0.1:8000/predict-house-price/",
+        "http://192.168.1.6:8000/predict-house-price/",
         formData
       );
       setPredictedPrice(response.data.predicted_price);
