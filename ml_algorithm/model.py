@@ -10,9 +10,10 @@ from sklearn.compose import ColumnTransformer
 # Load the dataset
 df = pd.read_csv('data.csv')
 
+
 # Define features and target
-features = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 
-            'waterfront', 'view', 'condition', 'sqft_above', 'sqft_basement', 
+features = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors',
+            'waterfront', 'view', 'condition', 'sqft_above', 'sqft_basement',
             'yr_built', 'yr_renovated']
 target = 'price'
 
@@ -23,8 +24,8 @@ y = df[target]
 # Split data into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Define preprocessing for numeric and categorical features
-numeric_features = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors', 
+# Pipeline for preprocessing and model training
+numeric_features = ['bedrooms', 'bathrooms', 'sqft_living', 'sqft_lot', 'floors',
                     'sqft_above', 'sqft_basement', 'yr_built', 'yr_renovated']
 categorical_features = ['waterfront', 'view', 'condition']
 
@@ -72,4 +73,6 @@ print(f"Test RMSE: {rmse}")
 
 # Save the best model
 best_model = search.best_estimator_
-joblib.dump(best_model, 'house_price_rf_model.pkl')
+joblib.dump(best_model, 'improved_house_price_rf_model.pkl')
+
+

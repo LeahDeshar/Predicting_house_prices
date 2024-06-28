@@ -3,4 +3,5 @@ ml_algorithm/house_price_rf_model.pkl
 ml_algorithm/__pycache__
 
 ml_algorithm/simple/house_price_rf_model.pkl
+ml_algorithm/improved_house_price_rf_model.pkl
 ml_algorithm/simple/__pycache__
