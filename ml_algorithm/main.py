@@ -1,17 +1,15 @@
-# main.py
-import io
-import pickle
 import numpy as np
-from fastapi import FastAPI, File, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
+import joblib
+from fastapi import FastAPI, HTTPException, Body
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the trained model
-with open('house_price_rf_model.pkl', 'rb') as f:
-    model = pickle.load(f)
+model = joblib.load('house_price_rf_model.pkl')
 
 app = FastAPI()
 
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,29 +18,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# endpoint to test
-@app.get('/')
-async def test():
-    return {"message": "Hello World"}
-
-
 @app.post('/predict-house-price/')
-async def predict_house_price(file: UploadFile = File(...)):
-    contents = await file.read()
-    df = pd.read_json(io.BytesIO(contents))
+async def predict_house_price(data: dict = Body(...)):
+    try:
+        # Convert JSON data to DataFrame
+        df = pd.DataFrame([data])
 
-    # Ensure the input data contains the correct columns
-    expected_columns = {'bedrooms', 'bathrooms', 'sqft'}
-    if not expected_columns.issubset(df.columns):
-        return {"error": "Invalid input data. Required columns: bedrooms, bathrooms, sqft"}
+        # Ensure the input data contains the correct columns
+        expected_columns = {'bedrooms', 'bathrooms', 'sqft'}
+        if not expected_columns.issubset(df.columns):
+            raise HTTPException(status_code=400, detail="Invalid input data. Required columns: bedrooms, bathrooms, sqft")
 
-    # Extract features for prediction
-    features = df[['bedrooms', 'bathrooms', 'sqft']].values
-    predictions = model.predict(features)
+        # Extract features for prediction
+        features = df[['bedrooms', 'bathrooms', 'sqft']].values
+        predictions = model.predict(features)
 
-    # Add predictions to the DataFrame and convert to JSON
-    df['predicted_price'] = predictions
-    return df.to_dict(orient='records')
+        # Prepare response
+        result = {
+            "input_data": data,
+            "predicted_price": float(predictions[0])
+        }
+        return result
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == '__main__':
     import uvicorn
