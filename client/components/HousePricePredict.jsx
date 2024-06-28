@@ -7,6 +7,10 @@ import {
   View,
   ScrollView,
   Alert,
+  Image,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import axios from "axios";
 
@@ -79,30 +83,65 @@ export default function HousePricePredict() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>
-        Enter the Value: Your Gateway to Predicting House Prices!
-      </Text>
-      {formFields.map((field, index) => (
-        <View key={index}>
-          <TextInput
-            key={field.name}
-            style={styles.input}
-            placeholder={field.placeholder}
-            placeholderTextColor={"grey"}
-            value={form[field.name]}
-            onChangeText={(value) => handleChange(field.name, value)}
-            keyboardType="numeric"
-          />
-        </View>
-      ))}
-      <Button title="Predict Price" onPress={handleSubmit} />
-      {predictedPrice !== null && (
-        <Text style={styles.result}>
-          Predicted Price: ${predictedPrice.toFixed(2)}
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Image
+          style={{
+            width: 200,
+            height: 200,
+            resizeMode: "center",
+            alignSelf: "center",
+            position: "absolute",
+            top: 0,
+          }}
+          source={require("../assets/home.png")}
+        />
+        <Text style={styles.title}>
+          Enter the Value: Your Gateway to Predicting House Prices!
         </Text>
-      )}
-    </ScrollView>
+        <View
+          style={{
+            top: 135,
+          }}
+        >
+          {formFields.map((field, index) => (
+            <View key={index}>
+              <TextInput
+                key={field.name}
+                style={styles.input}
+                placeholder={field.placeholder}
+                placeholderTextColor={"grey"}
+                value={form[field.name]}
+                onChangeText={(value) => handleChange(field.name, value)}
+                keyboardType="numeric"
+              />
+            </View>
+          ))}
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#4698e4",
+              padding: 10,
+              borderRadius: 25,
+              alignItems: "center",
+              top: 10,
+            }}
+            onPress={handleSubmit}
+          >
+            <Text>Predict Price</Text>
+          </TouchableOpacity>
+          {/* <Button title="Predict Price" onPress={handleSubmit} /> */}
+          {predictedPrice !== null && (
+            <Text style={styles.result}>
+              Predicted Price: ${predictedPrice.toFixed(2)}
+            </Text>
+          )}
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -110,7 +149,8 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     justifyContent: "center",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 150,
   },
   title: {
     fontSize: 24,
@@ -119,6 +159,7 @@ const styles = StyleSheet.create({
     paddingTop: 18,
     paddingBottom: 10,
     color: "#063663",
+    top: 150,
     textAlign: "center",
   },
   input: {

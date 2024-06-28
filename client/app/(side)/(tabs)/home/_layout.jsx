@@ -7,13 +7,8 @@ const HomeScreen = () => {
   const { colors, setScheme, dark } = useTheme();
   const navigator = useRouter();
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <HousePricePredict />
-      <Button
-        title={`Switch to ${dark ? "Light" : "Dark"} Theme`}
-        onPress={() => setScheme(dark ? "light" : "dark")}
-      />
-      <Button onPress={() => navigator.push("(side)")} title="click" />
     </View>
   );
 };
