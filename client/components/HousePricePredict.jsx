@@ -44,7 +44,6 @@ export default function HousePricePredict() {
 
   const handleSubmit = async () => {
     try {
-      console.log(form);
       const formData = {
         bedrooms: parseInt(form.bedrooms),
         bathrooms: parseFloat(form.bathrooms),
