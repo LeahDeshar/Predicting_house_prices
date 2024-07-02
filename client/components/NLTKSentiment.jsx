@@ -9,7 +9,7 @@ const NLTKSentiment = () => {
   const analyzeComment = async () => {
     try {
       const response = await axios.post(
-        "http://<your-server-ip>:8000/analyze_comment/",
+        "http://192.168.1.14:8000/analyze_comment/",
         {
           text: comment,
         }
